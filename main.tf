@@ -44,3 +44,23 @@ resource "aws_route_table_association" "nas_public_assoc" {
   route_table_id = aws_route_table.test_public_rt.id
   subnet_id      = aws_subnet.test_public_subnet.id
 }
+
+resource "aws_security_group" "test_sg" {
+  name        = "dev-sg"
+  description = "dev security group"
+  vpc_id      = aws_vpc.test_vpc.id
+
+  ingress {
+    from_port   = 0
+    protocol    = "-1"
+    to_port     = 0
+    cidr_blocks = ["0.0.0.0/32"]
+  }
+
+  egress {
+    from_port   = 0
+    protocol    = "-1"
+    to_port     = 0
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}
