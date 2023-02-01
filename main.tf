@@ -64,3 +64,8 @@ resource "aws_security_group" "test_sg" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 }
+
+resource "aws_key_pair" "test_auth" {
+  key_name = "testkey"
+  public_key = file("~/.ssh/testkey.pub")
+}
