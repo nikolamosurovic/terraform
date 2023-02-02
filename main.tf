@@ -69,3 +69,20 @@ resource "aws_key_pair" "test_auth" {
   key_name = "testkey"
   public_key = file("~/.ssh/testkey.pub")
 }
+
+resource "aws_instance" "dev_node" {
+  instance_type = "t2.micro"
+  ami           = data.aws_ami.server_ami.id
+  key_name               = aws_key_pair.test_auth.id
+  vpc_security_group_ids = [aws_security_group.test_sg.id] #dodajemo sg instanci
+  subnet_id              = aws_subnet.test_public_subnet.id
+  user_data = file("userdata.tpl")
+
+  root_block_device {
+    volume_size = 10
+  }
+
+  tags = {
+    name = "dev-node"
+  }
+}
