@@ -54,7 +54,7 @@ resource "aws_security_group" "test_sg" {
     from_port   = 0
     protocol    = "-1"
     to_port     = 0
-    cidr_blocks = ["24.135.209.122/32"]
+    cidr_blocks = ["24.135.209.122/32" , "0.0.0.0/0"]
   }
 
   egress {
